@@ -1,12 +1,12 @@
-import { Layout, Spin } from 'antd'
-import { useChatStore } from '@/stores/chatStore'
-import { Header } from '@/components/layout/Header'
-import { ChatInput } from '@/components/chat/ChatInput'
-import { MessageList } from '@/components/chat/MessageList'
-import { WelcomeScreen } from '@/components/chat/WelcomeScreen'
-import './App.css'
+import { Layout, Spin } from "antd";
+import { useChatStore } from "@/stores/chatStore";
+import { Header } from "@/components/layout/Header";
+import { ChatInput } from "@/components/chat/ChatInput";
+import { MessageList } from "@/components/chat/MessageList";
+import { WelcomeScreen } from "@/components/chat/WelcomeScreen";
+import "./App.css";
 
-const { Content } = Layout
+const { Content } = Layout;
 
 function App() {
   const {
@@ -16,19 +16,19 @@ function App() {
     useKnowledgeBase,
     setUseKnowledgeBase,
     sendMessage,
-  } = useChatStore()
+  } = useChatStore();
 
   const handleSuggestionClick = (text: string) => {
-    sendMessage(text)
-  }
+    sendMessage(text);
+  };
 
   return (
-    <Layout className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <Layout className="h-full ">
       <Header
         useKnowledgeBase={useKnowledgeBase}
         onKnowledgeBaseChange={setUseKnowledgeBase}
       />
-      
+
       <Content className="flex flex-col h-[calc(100vh-64px)]">
         {messages.length === 0 && !loading ? (
           <WelcomeScreen onSuggestionClick={handleSuggestionClick} />
@@ -40,13 +40,10 @@ function App() {
             className="flex-1"
           />
         )}
-        
+
         <div className="border-t bg-white">
           <div className="max-w-4xl mx-auto p-4">
-            <ChatInput
-              onSend={sendMessage}
-              loading={loading}
-            />
+            <ChatInput onSend={sendMessage} loading={loading} />
           </div>
         </div>
 
@@ -57,7 +54,7 @@ function App() {
         )}
       </Content>
     </Layout>
-  )
+  );
 }
 
-export default App
+export default App;
