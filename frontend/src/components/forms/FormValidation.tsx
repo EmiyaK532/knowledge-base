@@ -6,7 +6,7 @@ import {
   InfoCircleOutlined,
   WarningOutlined 
 } from '@ant-design/icons';
-import { FieldError, FieldErrors } from 'react-hook-form';
+import { type FieldError, type FieldErrors } from 'react-hook-form';
 
 // 单个字段错误显示组件
 interface FieldErrorMessageProps {

@@ -2,6 +2,7 @@
 export { KnowledgeForm } from './KnowledgeForm';
 export { AdvancedSearchForm } from './AdvancedSearchForm';
 export { UserSettingsForm } from './UserSettingsForm';
+export { FormExample } from './FormExample';
 
 // 表单验证和错误处理组件
 export { FormErrorBoundary } from './FormErrorBoundary';

@@ -1,5 +1,4 @@
 import React from 'react';
-import { message } from 'antd';
 import { UserSettingsForm } from '@/components/forms/UserSettingsForm';
 import { FormErrorBoundary } from '@/components/forms/FormErrorBoundary';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
@@ -155,15 +154,24 @@ export const UserSettingsPage: React.FC = () => {
       // 模拟异步保存操作
       await new Promise(resolve => setTimeout(resolve, 1000));
       
+      // 验证设置数据
+      if (!newSettings.profile.displayName) {
+        const { handleFormError } = await import('@/utils/errorHandler');
+        handleFormError(new Error('显示名称不能为空'), '显示名称');
+        return;
+      }
+      
       // 保存到本地存储
       setSettings(newSettings);
       
       // 应用一些设置
       applySettings(newSettings);
       
-      message.success('设置保存成功！');
+      const { showSuccess } = await import('@/utils/errorHandler');
+      showSuccess('设置保存成功！');
     } catch (error) {
-      message.error('保存设置失败，请稍后重试');
+      const { handleBusinessError } = await import('@/utils/errorHandler');
+      handleBusinessError('SETTINGS_SAVE_FAILED');
       throw error;
     } finally {
       setLoading(false);

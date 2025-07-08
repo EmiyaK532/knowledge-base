@@ -1,15 +1,15 @@
-import React from 'react';
-import { Layout as AntLayout, Menu, Drawer } from 'antd';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { 
-  MessageOutlined, 
-  BookOutlined, 
+import React from "react";
+import { Layout as AntLayout, Menu, Drawer } from "antd";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import {
+  MessageOutlined,
+  BookOutlined,
   SettingOutlined,
-  MenuOutlined,
-  HomeOutlined
-} from '@ant-design/icons';
-import { Header } from './Header';
-import { useChatStore } from '@/stores/chatStore';
+  HomeOutlined,
+  ExperimentOutlined,
+} from "@ant-design/icons";
+import { Header } from "./Header";
+import { useChatStore } from "@/stores/chatStore";
 
 const { Sider, Content } = AntLayout;
 
@@ -22,33 +22,39 @@ export const Layout: React.FC = () => {
 
   const menuItems = [
     {
-      key: '/',
+      key: "/",
       icon: <HomeOutlined />,
-      label: '智能对话',
-      onClick: () => navigate('/')
+      label: "智能对话",
+      onClick: () => navigate("/"),
     },
     {
-      key: '/chat',
+      key: "/chat",
       icon: <MessageOutlined />,
-      label: '聊天界面',
-      onClick: () => navigate('/chat')
+      label: "聊天界面",
+      onClick: () => navigate("/chat"),
     },
     {
-      key: '/knowledge',
+      key: "/knowledge",
       icon: <BookOutlined />,
-      label: '知识管理',
-      onClick: () => navigate('/knowledge')
+      label: "知识管理",
+      onClick: () => navigate("/knowledge"),
     },
     {
-      key: '/settings',
+      key: "/settings",
       icon: <SettingOutlined />,
-      label: '用户设置',
-      onClick: () => navigate('/settings')
-    }
+      label: "用户设置",
+      onClick: () => navigate("/settings"),
+    },
+    {
+      key: "/test",
+      icon: <ExperimentOutlined />,
+      label: "表单测试",
+      onClick: () => navigate("/test"),
+    },
   ];
 
   const handleMenuClick = (key: string) => {
-    const item = menuItems.find(item => item.key === key);
+    const item = menuItems.find((item) => item.key === key);
     if (item?.onClick) {
       item.onClick();
       setMobileMenuOpen(false);
@@ -87,7 +93,7 @@ export const Layout: React.FC = () => {
       placement="left"
       onClose={() => setMobileMenuOpen(false)}
       open={mobileMenuOpen}
-      bodyStyle={{ padding: 0 }}
+      styles={{ body: { padding: 0 } }}
       width={280}
     >
       <Menu
@@ -103,14 +109,10 @@ export const Layout: React.FC = () => {
   return (
     <AntLayout className="h-screen">
       {/* 桌面端侧边栏 */}
-      <div className="hidden md:block">
-        {DesktopSider}
-      </div>
+      <div className="hidden md:block">{DesktopSider}</div>
 
       {/* 移动端抽屉 */}
-      <div className="md:hidden">
-        {MobileDrawer}
-      </div>
+      <div className="md:hidden">{MobileDrawer}</div>
 
       <AntLayout>
         <Header

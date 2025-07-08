@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, message, Card, List, Tag, Space, Popconfirm } from 'antd';
+import { Modal, Button, Card, List, Tag, Space, Popconfirm } from 'antd';
 import { 
   PlusOutlined, 
   EditOutlined, 
@@ -28,8 +28,8 @@ export const KnowledgeManagePage: React.FC = () => {
         setKnowledgeList(response.data);
       }
     } catch (error) {
-      message.error('加载知识列表失败');
-      console.error(error);
+      const { handleApiError } = await import('@/utils/errorHandler');
+      handleApiError(error, '加载知识列表失败');
     } finally {
       setLoading(false);
     }
@@ -44,12 +44,13 @@ export const KnowledgeManagePage: React.FC = () => {
     try {
       const response = await knowledgeAPI.addKnowledge(data);
       if (response.success) {
-        message.success('知识条目添加成功！');
+        const { showSuccess } = await import('@/utils/errorHandler');
+        showSuccess('知识条目添加成功！');
         setIsAddModalOpen(false);
         loadKnowledgeList(); // 重新加载列表
       }
     } catch (error) {
-      message.error('添加失败，请稍后重试');
+      // 错误消息已在 API 层处理
       throw error;
     }
   };
@@ -66,11 +67,12 @@ export const KnowledgeManagePage: React.FC = () => {
       });
       if (response.success) {
         setKnowledgeList(response.data);
-        message.success(`找到 ${response.data.length} 条相关知识`);
+        const { showSuccess } = await import('@/utils/errorHandler');
+        showSuccess(`找到 ${response.data.length} 条相关知识`);
       }
     } catch (error) {
-      message.error('搜索失败，请稍后重试');
-      console.error(error);
+      const { handleBusinessError } = await import('@/utils/errorHandler');
+      handleBusinessError('SEARCH_FAILED');
     } finally {
       setSearchLoading(false);
     }
@@ -81,12 +83,13 @@ export const KnowledgeManagePage: React.FC = () => {
     try {
       const response = await knowledgeAPI.delete(id);
       if (response.success) {
-        message.success('删除成功');
+        const { showSuccess } = await import('@/utils/errorHandler');
+        showSuccess('删除成功');
         loadKnowledgeList();
       }
     } catch (error) {
-      message.error('删除失败，请稍后重试');
-      console.error(error);
+      const { handleApiError } = await import('@/utils/errorHandler');
+      handleApiError(error, '删除失败，请稍后重试');
     }
   };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Button, Input, Select, Tag, message, Form, Divider } from 'antd';
+import { Button, Input, Select, Tag, Form, Divider } from 'antd';
 import { PlusOutlined, BookOutlined, TagOutlined, FileTextOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
@@ -104,9 +104,10 @@ export const KnowledgeForm: React.FC<KnowledgeFormProps> = ({
       await onSubmit(data);
       reset();
       setCustomTags([]);
-      message.success('知识条目添加成功！');
+      // 成功消息由 API 层或父组件处理
     } catch (error) {
-      message.error('添加失败，请稍后重试');
+      // 错误消息已在 API 层处理，这里不需要重复显示
+      console.error('表单提交失败:', error);
     }
   };
 

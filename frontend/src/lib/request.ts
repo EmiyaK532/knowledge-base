@@ -1,4 +1,5 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios'
+import { handleApiError } from '@/utils/errorHandler'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'
 
@@ -18,9 +19,14 @@ class Request {
     this.instance.interceptors.request.use(
       (config) => {
         // 可以在这里添加 token 等
+        const token = localStorage.getItem('auth_token')
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`
+        }
         return config
       },
       (error) => {
+        handleApiError(error, '请求发送失败')
         return Promise.reject(error)
       }
     )
@@ -31,25 +37,8 @@ class Request {
         return response.data
       },
       (error) => {
-        // 统一错误处理
-        if (error.response) {
-          const { status, data } = error.response
-          switch (status) {
-            case 401:
-              // 未授权处理
-              break
-            case 404:
-              console.error('请求的资源不存在')
-              break
-            case 500:
-              console.error('服务器错误')
-              break
-            default:
-              console.error(data.message || '请求失败')
-          }
-        } else if (error.request) {
-          console.error('网络错误，请检查网络连接')
-        }
+        // 这里只记录错误，具体的错误处理由调用方决定
+        console.error('API请求失败:', error)
         return Promise.reject(error)
       }
     )
