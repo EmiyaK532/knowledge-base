@@ -1,0 +1,17 @@
+{
+  "name": "智能知识库",
+  "short_name": "知识库",
+  "description": "基于AI的智能知识库系统",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#2563eb",
+  "background_color": "#f9fafb",
+  "orientation": "portrait"
+}

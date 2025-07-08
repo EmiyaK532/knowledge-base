@@ -18,3 +18,46 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* 优化移动端体验 */
+@media (max-width: 768px) {
+  .ant-message {
+    top: 20px !important;
+  }
+  
+  .ant-card {
+    border-radius: 12px;
+  }
+}
+
+/* 动画优化 */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 确保内容不会被键盘遮挡 */
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
