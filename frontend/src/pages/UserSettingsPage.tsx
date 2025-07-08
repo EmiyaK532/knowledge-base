@@ -2,6 +2,7 @@ import React from 'react';
 import { UserSettingsForm } from '@/components/forms/UserSettingsForm';
 import { FormErrorBoundary } from '@/components/forms/FormErrorBoundary';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { message } from 'antd';
 
 interface UserSettings {
   profile: {

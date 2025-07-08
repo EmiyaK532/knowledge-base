@@ -17,20 +17,32 @@ export class VectorService {
 
   async initCollection() {
     try {
+      console.log(`📂 检查向量集合: ${this.collectionName}`)
+      
       const collections = await this.client.getCollections()
       const exists = collections.collections.some(c => c.name === this.collectionName)
 
       if (!exists) {
+        console.log(`🔨 创建新的向量集合: ${this.collectionName}`)
+        console.log(`   - 向量维度: 1536 (OpenAI embedding)`)
+        console.log(`   - 距离算法: Cosine`)
+        
         await this.client.createCollection(this.collectionName, {
           vectors: {
             size: 1536, // OpenAI embedding size
             distance: 'Cosine'
           }
         })
-        console.log('向量集合创建成功')
+        console.log(`✅ 向量集合 "${this.collectionName}" 创建成功`)
+      } else {
+        // 获取集合信息
+        const collectionInfo = await this.client.getCollection(this.collectionName)
+        console.log(`✅ 向量集合 "${this.collectionName}" 已存在`)
+        console.log(`   - 向量数量: ${collectionInfo.vectors_count || 0}`)
+        console.log(`   - 索引状态: ${collectionInfo.status || 'unknown'}`)
       }
-    } catch (error) {
-      console.error('初始化集合失败:', error)
+    } catch (error: any) {
+      console.error(`❌ 初始化集合失败: ${error.message}`)
       throw error
     }
   }

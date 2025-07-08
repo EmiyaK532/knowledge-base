@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Space, Button, Divider } from 'antd';
 import { FormExample } from '@/components/forms/FormExample';
+import { DatabaseStatus } from '@/components/DatabaseStatus';
 import { useNavigate } from 'react-router-dom';
 
 export const TestPage: React.FC = () => {
@@ -8,6 +9,9 @@ export const TestPage: React.FC = () => {
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
+      {/* 系统状态检查 */}
+      <DatabaseStatus />
+      
       <Card title="🎉 表单功能测试页面" className="mb-6">
         <Space direction="vertical" size="large" className="w-full">
           <div>

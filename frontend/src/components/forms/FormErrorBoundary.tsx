@@ -1,7 +1,7 @@
 import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Alert, Button, Result } from 'antd';
-import { ExclamationCircleOutlined, ReloadOutlined, BugOutlined } from '@ant-design/icons';
+import { ReloadOutlined, BugOutlined } from '@ant-design/icons';
 
 interface FormErrorFallbackProps {
   error: Error;
