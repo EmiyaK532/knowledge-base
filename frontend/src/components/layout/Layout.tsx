@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Layout as AntLayout, Menu, Drawer } from "antd";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import {
@@ -19,6 +19,11 @@ export const Layout: React.FC = () => {
   const [collapsed, setCollapsed] = React.useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const { useKnowledgeBase, setUseKnowledgeBase } = useChatStore();
+  const store = useChatStore();
+
+  useEffect(() => {
+    console.log(JSON.stringify(store, null, 2));
+  }, []);
 
   const menuItems = [
     {
